@@ -88,9 +88,35 @@ function Home(){
         window.location.assign("https://github.com/login/oauth/authorize?client_id=" + client_id);
     }*/
 
-        async function initializereact_project(){
+    async function initializereact_project() {
 
+        console.log(repolink);
+        
+
+        try {
+            const response = await fetch("http://13.235.78.135:8000/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ repoUrl:repolink }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                console.log("✅ Success:", result.message);
+                alert("React project initialized and pushed to GitHub!");
+            } else {
+                console.error("❌ Error:", result.error);
+                alert("Failed: " + result.error);
+            }
+        } catch (err) {
+                console.error("❌ Request Failed:", err.message);
+                alert("Request failed. Check EC2 or network.");
         }
+    }
+
 
     if(load == 3){
         return (
@@ -123,7 +149,9 @@ function Home(){
     return (
         <div>
 
-            <button onClick={login_with_github}>React js</button>
+            <button onClick={()=>{
+                set_load(2);
+            }} >React js</button>
             <button>Node js</button>
             <button>Flask</button>
             <button>Django</button>
