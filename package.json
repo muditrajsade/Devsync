@@ -1,0 +1,26 @@
+{
+  "name": "devsync",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run vite\" \"npm run server\" \"npm run electron\"",
+    "vite": "cd Devsync_frontend && npm run dev",
+    "server": "node proxyserver.js",
+    "electron": "wait-on http://localhost:5173 && electron ."
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "electron": "^37.2.1",
+    "path": "^0.12.7",
+    "url": "^0.11.4"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "wait-on": "^8.0.3"
+  }
+}
